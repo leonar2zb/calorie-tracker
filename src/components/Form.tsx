@@ -1,6 +1,6 @@
-import { Activity } from "."
 import { categories } from "../data/categories"
 import { useState, ChangeEvent, FormEvent } from "react"
+import type { Activity } from "../types"
 
 export default function Form() {
     const [activity, setActivity] = useState<Activity>({
