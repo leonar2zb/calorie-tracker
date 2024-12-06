@@ -1,5 +1,6 @@
 import { categories } from "../data/categories"
 import { useState, ChangeEvent, FormEvent, Dispatch } from "react"
+import { v4 as uuidv4 } from "uuid"
 import type { Activity } from "../types"
 import { ActivityActions } from "../reducers/activity-reducer"
 
@@ -8,6 +9,7 @@ type FormProps = {
 }
 
 const initialState: Activity = {
+    id: uuidv4(),
     category: 1,
     name: '',
     calories: 0
@@ -32,7 +34,7 @@ export default function Form({ dispatch }: FormProps) {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch({ type: "save-activity", payload: { newActivity: activity } })
-        setActivity(initialState)
+        setActivity({ ...initialState, id: uuidv4() })
     }
 
     return (<form className="space-y-5 bg-white shadow p-10 rounded-lg"
