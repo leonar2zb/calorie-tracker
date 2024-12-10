@@ -21,16 +21,17 @@ export const activityReducer = (
 ) => {
     if (action.type === 'save-activity') {
         // aquí se maneja la lógica para actualizar el state
-        // Esta idea filtro y exluyo(si existe) el del id y luego siempre se agrega el nuevo
-        const restOfActivities = state.activities.filter(act => act.id !== action.payload.newActivity.id)
+        let updatedActivities: Activity[] = []
+        if (state.activeId) {
+            updatedActivities = state.activities.map(activity => activity.id === state.activeId ? action.payload.newActivity : activity)
+        } else {
+            updatedActivities = [...state.activities, action.payload.newActivity]
+        }
         return {
             ...state,
-            activities: [...restOfActivities, action.payload.newActivity]
+            activities: updatedActivities,
+            activeId: ''
         }
-        /*return {
-            ...state,
-            activities: [...state.activities, action.payload.newActivity]
-        }*/
     }
     if (action.type === 'set-activeid') {
         return {
