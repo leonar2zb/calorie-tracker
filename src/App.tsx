@@ -23,6 +23,9 @@ function App() {
             </button> : ''
           }
         </div>
+        <div className="w-full text-right p-0 h-auto">
+          <span className="text-xs mr-10 text-blue-700 shadow-lg"><a href="https://github.com/leonar2zb/calorie-tracker" target="_blank">ver fuente en Github</a></span>
+        </div>
       </header>
       <section className="bg-lime-500 py-20 px-5">
         <div className="max-w-4xl mx-auto">
