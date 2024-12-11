@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <header className="bg-lime-600 py-3">
-        <div className="max-w-4xl mx-auto flex justify-between">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
           <h1 className="text-center text-lg font-bold text-white uppercase">Contador de Calorías</h1>
           {state.activities.length !== 0 ?
             <button onClick={() => dispatch({ type: 'restart-app' })}
