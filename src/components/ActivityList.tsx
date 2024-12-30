@@ -1,17 +1,9 @@
-import { useMemo, Dispatch } from "react"
-import { Activity } from "../types"
-import { categories } from "../data/categories"
 import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/outline"
-import { ActivityActions } from "../reducers/activity-reducer"
+import { useActivity } from "../types/hooks/useActivity"
 
-type ActivityListProps = {
-    activities: Activity[]
-    dispatch: Dispatch<ActivityActions>
-}
-export default function ActivityList({ activities, dispatch }: ActivityListProps) {
-    const categoryName = useMemo(() => (category: Activity['category']) => categories.map(cat => cat.id === category ? cat.name : ''), [activities])
-    /* Otra forma que devuelve solo el string. Dejo activa, sin embargo, la manera del curso con el array y el map
-    const categoryName = useMemo(() => (category: Activity['category']) => (categories.find(cat => cat.id === category))?.name, [activities]) */
+export default function ActivityList() {
+    const { state, dispatch, categoryName } = useActivity()
+    const { activities } = state
 
     return (<>
         <h2 className="text-4xl font-bold text-slate-600 text-center">Comida y Actividades</h2>
