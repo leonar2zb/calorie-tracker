@@ -1,0 +1,26 @@
+name: Deploy React App to VPS
+
+on:
+  push:
+    branches:
+      - master  # Se activará cuando hagas push a master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v2
+
+      - name: Configurar SSH y Desplegar en VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VPS_USER: "ubuntu"  # Cambia esto si es necesario
+          VPS_HOST: "ec2-3-129-21-36.us-east-2.compute.amazonaws.com"  # Cambia esto si es necesario
+          APP_DIR: "/var/www/html"  # Directorio de tu aplicación en el VPS
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          rsync -avz -e "ssh -i private_key -o StrictHostKeyChecking=no" ./build/ $VPS_USER@$VPS_HOST:$APP_DIR
+          rm -f private_key
